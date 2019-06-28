@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0.0"
+    "php": ">=7.0.0",
     "mix/bean": "v2.1.x-dev",
     "mix/framework": "v2.1.x-dev"
   },
