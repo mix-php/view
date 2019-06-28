@@ -1,0 +1,28 @@
+{
+  "name": "mix/view",
+  "description": "Mix View http://www.mixphp.cn",
+  "type": "framework",
+  "keywords": [
+    "framework",
+    "mixphp",
+    "swoole"
+  ],
+  "homepage": "http://www.mixphp.cn/",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "liu,jian",
+      "email": "coder.keda@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0"
+    "mix/bean": "v2.1.x-dev",
+    "mix/framework": "v2.1.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mix\\View\\": "src/"
+    }
+  }
+}
