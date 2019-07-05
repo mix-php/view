@@ -3,6 +3,8 @@
 namespace Mix\View;
 
 use Mix\Bean\BeanInjector;
+use Mix\Http\Message\Response;
+use Mix\Http\Message\Stream\ContentStream;
 
 /**
  * Class View
@@ -11,6 +13,11 @@ use Mix\Bean\BeanInjector;
  */
 class View
 {
+
+    /**
+     * @var Response
+     */
+    public $response;
 
     /**
      * @var string
@@ -24,32 +31,35 @@ class View
     public function __construct(array $config)
     {
         BeanInjector::inject($this, $config);
+        $this->response->withContentType('text/html', 'utf-8');
     }
 
     /**
      * 渲染视图 (包含布局)
      * @param $name
      * @param array $data
-     * @return string
+     * @return Response
      */
-    public function render($name, $data = [])
+    public function render($name, $data = []): Response
     {
         $layout          = $this->layout;
         $renderer        = new Renderer();
         $data['content'] = $renderer->render($name, $data);
-        return $renderer->render("layouts.{$layout}", $data);
+        $html            = $renderer->render("layouts.{$layout}", $data);
+        return $this->response->withBody(new ContentStream($html));
     }
 
     /**
      * 渲染视图 (不包含布局)
      * @param $name
      * @param array $data
-     * @return string
+     * @return Response
      */
-    public function renderPartial($name, $data = [])
+    public function renderPartial($name, $data = []): Response
     {
         $renderer = new Renderer();
-        return $renderer->render($name, $data);
+        $html     = $renderer->render($name, $data);
+        return $this->response->withBody(new ContentStream($html));
     }
 
 }
