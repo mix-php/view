@@ -13,12 +13,12 @@ class View
     /**
      * @var string
      */
-    public $layout = '';
+    public $dir = '';
 
     /**
      * @var string
      */
-    public $dir = '';
+    public $layout = 'main';
 
     /**
      * View constructor.
