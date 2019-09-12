@@ -18,14 +18,14 @@ class View
     /**
      * @var string
      */
-    public $layout = 'main';
+    public $layout = '';
 
     /**
      * View constructor.
      * @param string $layout
      * @param string $dir
      */
-    public function __construct(string $dir, string $layout = 'main')
+    public function __construct(string $dir, string $layout = '')
     {
         $this->dir    = $dir;
         $this->layout = $layout;
@@ -39,22 +39,14 @@ class View
      */
     public function render(string $name, array $data = []): string
     {
-        $layout          = $this->layout;
+        $layout = $this->layout;
+        if (!$layout) {
+            $renderer = new Renderer();
+            return $renderer->render($this->dir, $name, $data);
+        }
         $renderer        = new Renderer();
         $data['content'] = $renderer->render($this->dir, $name, $data);
         return $renderer->render($this->dir, "layouts.{$layout}", $data);
-    }
-
-    /**
-     * 渲染视图 (不包含布局)
-     * @param string $name
-     * @param array $data
-     * @return string
-     */
-    public function renderPartial(string $name, array $data = []): string
-    {
-        $renderer = new Renderer();
-        return $renderer->render($this->dir, $name, $data);
     }
 
 }
